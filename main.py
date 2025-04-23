@@ -1,12 +1,11 @@
-# Full Project Code Mail : vatshayan007@gmail.com
-# If you get error then Mail : vatshayan007@gmail.com
+
 import cv2
 import numpy as np
-import face_recognitions
+import face_recognition
 
-imgModi = face_recognition.load_image_file('Images_Attendance/modi-image-for-InUth.jpg')
+imgModi = face_recognition.load_image_file('Images_Attendance/nrendra.jpeg')
 imgModi = cv2.cvtColor(imgModi, cv2.COLOR_BGR2RGB)
-imgTest = face_recognition.load_image_file('Images_Attendance/narendra-modi.jpg')
+imgTest = face_recognition.load_image_file('Images_Attendance/nrendra.jpeg')
 imgTest = cv2.cvtColor(imgTest, cv2.COLOR_BGR2RGB)
 
 faceloc = face_recognition.face_locations(imgModi)[0]

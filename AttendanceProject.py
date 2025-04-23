@@ -1,9 +1,6 @@
-# Full Project Code Mail : vatshayan007@gmail.com
-# If you get error then Mail : vatshayan007@gmail.com
-
 import cv2
 import numpy as np
-import face_recognitions
+import face_recognition
 import os
 from datetime import datetime
 
@@ -18,6 +15,7 @@ for cl in myList:
     classNames.append(os.path.splitext(cl)[0])
 print(classNames)
 
+
 def findEncodings(images):
     encodeList =[]
     for img in images:
@@ -27,9 +25,16 @@ def findEncodings(images):
     return encodeList
 
 def markAttendance(name):
-    with open('Attendance.csv', 'r+') as f:
+    filename = 'Attendance.csv'
+
+    # Create the file with headers if it doesn't exist
+    if not os.path.exists(filename):
+        with open(filename, 'w') as f:
+            f.write('Name,Time,Date\n')
+
+    with open(filename, 'r+') as f:
         myDataList = f.readlines()
-        nameList = []
+        nameList = [line.split(',')[0].strip() for line in myDataList[1:]]
         for line in myDataList:
             entry = line.split(',')
             nameList.append(entry[0])
@@ -38,6 +43,9 @@ def markAttendance(name):
             tString = time_now.strftime('%H:%M:%S')
             dString = time_now.strftime('%d/%m/%Y')
             f.writelines(f'\n{name},{tString},{dString}')
+            print(f'✅ Attendance marked for {name}')
+        else:
+            print(f'⚠️ Already marked for {name}')
 
 encodeListKnown = findEncodings(images)
 print('Encoding Complete')
@@ -70,6 +78,6 @@ while True:
     if cv2.waitKey(10) == 13:
         break
 cap.release()
-cv2.destroyAllWindow()
+cv2.destroyAllWindows()
 
 
